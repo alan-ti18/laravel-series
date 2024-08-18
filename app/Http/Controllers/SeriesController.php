@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -22,11 +23,11 @@ class SeriesController extends Controller
 
     public function edit(Request $request) {
         $serie = Serie::find($request->idSerie);
-        // dd($serie->id);
+        dd($serie->season);
         return view('series.edit')->with('serie', $serie);
     }
 
-    public function store(Request $request) {
+    public function store(SeriesFormRequest $request) {
         $serie = Serie::create($request->all());
         $request->session()->put('success', "Série '{$serie->nome}' criada com sucesso!");
         return redirect()->route('series.index')->with('success', "Série '{$serie->nome}' criada com sucesso!");
@@ -38,9 +39,9 @@ class SeriesController extends Controller
         return redirect()->route('series.index')->with('success', "Série '{$serie->nome}' excluída com sucesso!");
     }
 
-    public function update(Request $request) {
-        $serie = Serie::find($request->idSerie);
-        // Serie::where('id', $request->idSerie)->update($request->all());
+    public function update(Serie $serie, SeriesFormRequest $request) {
+        $serie->fill($request->all());
+        $serie->save();
         return redirect()->route('series.index')->with('success', "Série '{$serie->nome}' editada com sucesso!");
     }
 }

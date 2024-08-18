@@ -12,4 +12,8 @@ class Serie extends Model
     protected $fillable = [
         'nome',
     ];
+
+    public function season(){
+        return $this->hasMany(Season::class, 'series_id', 'id'); // 'series_id' é a foreign key que será buscada no relacionamento e 'id' é a primary key da tabela
+    }
 }

@@ -11,6 +11,16 @@
 
 <body>
 	<div class="container">
+		@if ($errors->any())
+			<div class="alert alert-danger mt-3"
+				style="position: absolute; right: 16px; top: 8px; z-index: 9999; width: 40%; max-width: 500px">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li style="list-style: none">{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
 		<h1 class="my-5">{{ $title }}</h1>
 
 		{{ $slot }}
