@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('episodes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('numero');
-            $table->foreignId('season_id')->constrained('seasons');
+            $table->unsignedTinyInteger('number');
+            $table->foreignId('season_id')->constrained('seasons')
+                ->onDelete('cascade'); // quando deletar a temporada, deletar os episodios.
         });
     }
 

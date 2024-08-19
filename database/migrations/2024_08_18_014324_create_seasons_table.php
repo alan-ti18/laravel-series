@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('numero');
+            $table->unsignedTinyInteger('number');
             // $table->unsignedBigInteger('series_id');
             // $table->foreign('series_id')->references('id')->on('series');
-            $table->foreignId('series_id')->constrained('series'); // esta linha substitui estas duas de cima.
+            $table->foreignId('series_id')->constrained('series') // esta linha substitui estas duas de cima.
+                ->onDelete('cascade'); // quando a serie for excluída, o relacionamento com os episódios também será excluído.
             
             $table->timestamps();
         });
