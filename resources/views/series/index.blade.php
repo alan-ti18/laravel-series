@@ -8,7 +8,8 @@
 	@if (count($series) > 0)
 		<ul class="list-group">
 			@foreach ($series as $serie)
-				<li class="list-group-item d-flex justify-content-between align-items-center">{{ $serie->nome }}
+				<li class="list-group-item d-flex justify-content-between align-items-center"><a
+						href="{{ route('seasons.index', $serie->id) }}">{{ $serie->nome }}</a>
 					<div class="d-flex gap-2">
 						<a href="{{ route('series.edit', $serie->id) }}" class="btn btn-primary btn-sm">Editar</a>
 						<form method="post" action="{{ route('series.destroy', $serie->id) }}">
