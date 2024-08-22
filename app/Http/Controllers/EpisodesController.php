@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEpisodeRequest;
 use App\Http\Requests\UpdateEpisodeRequest;
 use App\Models\Episode;
+use App\Models\Season;
 
-class EpisodeController extends Controller
+class EpisodesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Season $season)
     {
-        //
+        return view('episodes.index', ['episodes' => $season->episodes, 'season' => $season]);
     }
 
     /**

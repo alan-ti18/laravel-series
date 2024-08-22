@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EpisodesController;
 use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/', function () {
     return redirect(route('series.index'));
 });
 
+// Rotas de Séries
 Route::controller(SeriesController::class)->group(function () {
     Route::get('/series', 'index')->name('series.index');
     Route::get('/series/create', 'create')->name('series.create');
@@ -28,4 +30,9 @@ Route::controller(SeriesController::class)->group(function () {
     Route::delete('/series/destroy/{idSerie}', 'destroy')->name('series.destroy')->whereNumber('idSerie');
 });
 
-Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
+// Rotas de Temporadas
+Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index')->whereNumber('series');
+
+// Rotas de Episódios
+Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index')->whereNumber('season');
+Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'store'])->name('episodes.store')->whereNumber('season');
