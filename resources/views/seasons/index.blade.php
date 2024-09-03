@@ -5,7 +5,8 @@
 				<a href="{{ route('episodes.index', $season->id) }}">
 					Temporada {{ $season->number }}
 				</a>
-				<span class="badge bg-primary rounded-pill">{{ $season->episodes->count() }} episódios</span>
+				<span class="badge bg-primary rounded-pill">{{ $season->numberOfWatchedEpisodes() }}
+					/ {{ $season->episodes->count() }} episódios</span>
 			</li>
 		@endforeach
 	</ul>

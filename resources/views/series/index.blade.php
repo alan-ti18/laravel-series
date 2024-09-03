@@ -1,9 +1,5 @@
-<x-layout title="Séries">
+<x-layout title="Séries" :msgSuccess="$msgSuccess">
 	<a class="btn btn-dark mb-2" href="{{ route('series.create') }}">Adicionar</a>
-
-	@isset($msgSuccess)
-		<div class="alert alert-success">{{ $msgSuccess }}</div>
-	@endisset
 
 	@if (count($series) > 0)
 		<ul class="list-group">

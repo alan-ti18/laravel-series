@@ -64,7 +64,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Last Done Action
-
-Criada migration para criar o atributo "completed". Falta o vídeo "Salvando no Banco" para aprender como salvar

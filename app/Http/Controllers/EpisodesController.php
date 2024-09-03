@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEpisodeRequest;
 use App\Http\Requests\UpdateEpisodeRequest;
 use App\Models\Episode;
 use App\Models\Season;
+use Illuminate\Http\Request as HttpRequest;
 
 class EpisodesController extends Controller
 {
@@ -14,7 +15,7 @@ class EpisodesController extends Controller
      */
     public function index(Season $season)
     {
-        return view('episodes.index', ['episodes' => $season->episodes, 'season' => $season]);
+        return view('episodes.index', ['episodes' => $season->episodes, 'season' => $season, 'msgSuccess' => session('msgSuccess')]);
     }
 
     /**
@@ -49,12 +50,16 @@ class EpisodesController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEpisodeRequest $request, Episode $episode)
+    public function update(HttpRequest $request, Season $season)
     {
-        //
+        $watchedEpisodes = $request->episodes;
+        $season->episodes->each(function (Episode $episode) use ($watchedEpisodes) {
+            $episode->completed = in_array($episode->id, $watchedEpisodes);
+        });
+
+        $season->push();
+
+        return to_route('episodes.index', $season->id)->with('msgSuccess', 'Episódios atualizados com sucesso!');
     }
 
     /**
